@@ -16,7 +16,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Posts/Index');
+        return Inertia::render('Posts/Index',[
+                'posts' => Post::select('user_id', 'title', 'body', 'post_image')
+                ->get()
+            ]);
     }
 
     /**
@@ -26,7 +29,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Posts/Create');
     }
 
     /**
@@ -37,7 +40,15 @@ class PostController extends Controller
      */
     public function store(StorepostRequest $request)
     {
-        //
+        $user = auth()->user();
+        
+        Post::create([
+            'title' => $request->title,
+            'body' => $request->body,
+            'user_id' => $user->name
+            ]);
+            
+        return to_route('posts.index');
     }
 
     /**

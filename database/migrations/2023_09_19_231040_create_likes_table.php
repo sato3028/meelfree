@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->comment('ユーザーID');
             $table->foreignId('post_id')->constrained()->onUpdate('cascade')->comment('投稿ID');
+            $table->timestamps();
         });
     }
 
