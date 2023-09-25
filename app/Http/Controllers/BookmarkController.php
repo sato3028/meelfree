@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreFollowRequest;
-use App\Http\Requests\UpdateFollowRequest;
-use App\Models\Follow;
+use App\Http\Requests\StoreBookmarkRequest;
+use App\Http\Requests\UpdateBookmarkRequest;
+use App\Models\Bookmark;
 
-class FollowController extends Controller
+class BookmarkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class FollowController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreFollowRequest  $request
+     * @param  \App\Http\Requests\StoreBookmarkRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreFollowRequest $request)
+    public function store(StoreBookmarkRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class FollowController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Follow  $follow
+     * @param  \App\Models\Bookmark  $bookmark
      * @return \Illuminate\Http\Response
      */
-    public function show(Follow $follow)
+    public function show(Bookmark $bookmark)
     {
         //
     }
@@ -53,10 +53,10 @@ class FollowController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Follow  $follow
+     * @param  \App\Models\Bookmark  $bookmark
      * @return \Illuminate\Http\Response
      */
-    public function edit(Follow $follow)
+    public function edit(Bookmark $bookmark)
     {
         //
     }
@@ -64,11 +64,11 @@ class FollowController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateFollowRequest  $request
-     * @param  \App\Models\Follow  $follow
+     * @param  \App\Http\Requests\UpdateBookmarkRequest  $request
+     * @param  \App\Models\Bookmark  $bookmark
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFollowRequest $request, Follow $follow)
+    public function update(UpdateBookmarkRequest $request, Bookmark $bookmark)
     {
         //
     }
@@ -76,23 +76,11 @@ class FollowController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Follow  $follow
+     * @param  \App\Models\Bookmark  $bookmark
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Follow $follow)
+    public function destroy(Bookmark $bookmark)
     {
         //
-    }
-    
-    public function follow(User $user)
-    {
-    auth()->user()->following()->attach($user->id);
-    return redirect()->back();
-    }
-
-    public function unfollow(User $user)
-    {
-    auth()->user()->following()->detach($user->id);
-    return redirect()->back();
     }
 }
