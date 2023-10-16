@@ -38,6 +38,9 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('posts.create')" :active="route().current('posts.create')">
                                 投稿する
                                 </NavLink>
+                                <NavLink :href="route('follows.index')" :active="route().current('follows.index')">
+                                フォロー管理
+                                </NavLink>
                             </div>
                         </div>
 
@@ -126,6 +129,9 @@ const showingNavigationDropdown = ref(false);
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('posts.create')" :active="route().current('posts.create')">
                             投稿する
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('follows.index')" :active="route().current('follows.index')">
+                            フォロー管理
                         </ResponsiveNavLink>
                     </div>
 
