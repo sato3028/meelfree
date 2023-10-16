@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use App\Models\Comment;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
-use App\Models\Comment;
 
 class CommentController extends Controller
 {
@@ -13,9 +17,14 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($postId)
     {
-        //
+        $comments = Comment::where('post_id', $postId)->with('user')->get();
+
+        return inertia('PostModal', [
+            'post' => Post::find($postId), // あなたのPostモデルを取得するコードに置き換えてください
+            'comments' => $comments,
+        ]);
     }
 
     /**
@@ -34,10 +43,16 @@ class CommentController extends Controller
      * @param  \App\Http\Requests\StoreCommentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCommentRequest $request)
+    public function store(Request $request, Post $post)
     {
-        //
+        $request->validate(['body' => 'required']);
+        
+        $comment = new Comment(['body' => $request->body, 'user_id' => auth()->id()]);
+        $post->comments()->save($comment);
+    
+        return redirect()->route('posts.show', $post);
     }
+
 
     /**
      * Display the specified resource.

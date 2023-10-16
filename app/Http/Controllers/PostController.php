@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorepostRequest;
 use App\Http\Requests\UpdatepostRequest;
 use App\Models\Post;
+use App\Models\Category;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -16,8 +17,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Posts/Index',[
-                'posts' => Post::select('user_id', 'title', 'body', 'post_image')
+        return Inertia::render('Posts/Index', [
+            'posts' => Post::select('id', 'user_id', 'title', 'body', 'post_image')
+                ->with(['categories' => function($query) {
+                    $query->select('id', 'name');
+                }])
                 ->get()
             ]);
     }
@@ -29,7 +33,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Posts/Create');
+        $categories = Category::all();
+        return Inertia::render('Posts/Create', ['categories' => $categories]);
     }
 
     /**
@@ -42,13 +47,15 @@ class PostController extends Controller
     {
         $user = auth()->user();
         
-        Post::create([
+        $post = Post::create([
             'title' => $request->title,
             'body' => $request->body,
-            'user_id' => $user->name
-            ]);
+            'user_id' => $user->id
+        ]);
             
-        return to_route('posts.index');
+        $post->categories()->attach($request->categories);
+            
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -57,9 +64,10 @@ class PostController extends Controller
      * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(post $post)
+    public function show(Post $post)
     {
-        //
+        $comments = $post->comments()->with('user')->get();
+        return inertia('Posts/Show', ['post' => $post, 'comments' => $comments]);
     }
 
     /**

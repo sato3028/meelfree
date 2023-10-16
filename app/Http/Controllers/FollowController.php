@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFollowRequest;
 use App\Http\Requests\UpdateFollowRequest;
 use App\Models\Follow;
+use App\Models\User;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
 
 class FollowController extends Controller
 {
@@ -15,7 +18,13 @@ class FollowController extends Controller
      */
     public function index()
     {
-        //
+        $following = auth()->user()->following;
+        $followers = auth()->user()->followers;
+    
+        return Inertia::render('Follows/Index', [
+            'following' => $following,
+            'followers' => $followers
+        ]);
     }
 
     /**
@@ -86,13 +95,35 @@ class FollowController extends Controller
     
     public function follow(User $user)
     {
-    auth()->user()->following()->attach($user->id);
-    return redirect()->back();
+        $follower_id = auth()->id();
+    
+        if (!$user->followers->contains($follower_id)) {
+            Follow::create([
+                'user_id' => $user->id,
+                'follower_id' => $follower_id,
+            ]);
+        }
+    
+        return redirect()->back();
     }
-
+    
     public function unfollow(User $user)
     {
-    auth()->user()->following()->detach($user->id);
-    return redirect()->back();
+        // DB::enableQueryLog();
+    
+        $follow = Follow::where('user_id', $user->id)
+            ->where('follower_id', auth()->id())
+            ->first();
+    
+        // $queries = DB::getQueryLog();
+        // dd($queries);
+            
+    
+        if ($follow) {
+            $follow->delete();
+        }
+        
+        // return response()->json(['status' => 'success']);
+        return redirect()->back();
     }
 }
