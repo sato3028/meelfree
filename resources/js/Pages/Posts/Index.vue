@@ -11,11 +11,11 @@ const reversedPosts = computed(() => {
   return [...props.posts].reverse();
 });
 
-onMounted(() => {
-  reversedPosts.value.forEach((post, index) => {
-    console.log(`Post ${index + 1} Categories:`, post.categories);
-  });
-});
+// onMounted(() => {
+//   reversedPosts.value.forEach((post, index) => {
+//     console.log(`Post ${index + 1} Categories:`, post.categories);
+//   });
+// });
 </script>
 
 <template>
@@ -28,59 +28,120 @@ onMounted(() => {
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="overflow-hidden sm:rounded-lg">
                   
-                    <section class="text-gray-600 body-font overflow-hidden">
-                      <div class="container px-5 py-12 mx-auto">
-                        <div class="flex flex-wrap -m-12">
-                            
-                          <div v-for="post in reversedPosts" class="p-12 md:w-1/2 flex flex-col items-start">
-                            <div class="flex space-x-2">
-                              <span 
-                                v-for="category in post.categories" 
-                                :key="category.id" 
-                                class="inline-block py-1 px-2 rounded bg-indigo-50 text-indigo-500 text-xs font-medium tracking-widest"
-                              >
-                                {{ category.name }}
-                              </span>
-                            </div>
-                            
-                            <h2 class="sm:text-3xl text-2xl title-font font-medium text-gray-900 mt-4 mb-4">{{ post.title }}</h2>
-                            <p class="leading-relaxed mb-8">{{ post.body }}</p>
-                            <div class="flex items-center flex-wrap pb-4 mb-4 border-b-2 border-gray-100 mt-auto w-full">
-                              <a :href="`/posts/${post.id}`" class="text-indigo-500 inline-flex items-center">Learn More
-                                <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                  <path d="M5 12h14"></path>
-                                  <path d="M12 5l7 7-7 7"></path>
-                                </svg>
-                              </a>
-                              <span class="text-gray-400 mr-3 inline-flex items-center ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
-                                <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                  <circle cx="12" cy="12" r="3"></circle>
-                                </svg>1.2K
-                              </span>
-                              <span class="text-gray-400 inline-flex items-center leading-none text-sm">
-                                <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                  <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-                                </svg>6
-                              </span>
-                            </div>
-                            <a :href="`/users/${post.user_id}`" class="inline-flex items-center">
-                              <img alt="blog" src="https://dummyimage.com/104x104" class="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center">
-                              <span class="flex-grow flex flex-col pl-4">
-                                <span class="title-font font-medium text-gray-900">{{ post.user_id }}</span>
-                              </span>
-                            </a>
-                          </div>
+                <div class="grid place-items-center mt-6">
+                  
+                <div  v-for="post in reversedPosts" class="bg-white rounded-md bg-gray-800 shadow-lg my-6 mx-auto w-3/4">
+                  <div class="md:flex px-4 leading-none max-w-4xl">
+                    <!--<div class="flex-none ">-->
+                    <!--  <img-->
+                    <!--      :src="post.images.length > 0 ? post.images[0].image_url : 'https://res.cloudinary.com/dqaxgeag8/image/upload/v1697804642/20200501_noimage_k5bak3.jpg'"-->
+                    <!--      alt="pic"-->
+                    <!--      class="h-72 w-56 rounded-md shadow-2xl transform -translate-y-4 border-4 border-gray-300 shadow-lg"-->
+                    <!--  />         -->
+                    <!--</div>-->
                     
-                        </div>
+                    <div class="flex-none image-container">
+                      <div
+                          :style="`background-image: url(${post.images.length > 0 ? post.images[0].image_url : 'https://res.cloudinary.com/dqaxgeag8/image/upload/v1697804642/20200501_noimage_k5bak3.jpg'});`"
+                          class="post-image rounded-md shadow-2xl transform -translate-y-4 border-4 border-gray-300 shadow-lg"
+                      ></div>
+                    </div>
+          
+                    <div class="flex-col text-gray-300 w-hull">
+             
+                      <p class="pl-4 mt-2 text-2xl font-bold">{{ post.title }}</p>
+                      <hr class="hr-text" data-content="">
+                      <div class="hidden md:block  text-left text-xl px-4 my-2">
+                        <span class="font-bold">{{ post.body }}</span>
                       </div>
-                    </section>
-                
+                      
+                      <p class="flex space-x-2 text-md px-4 my-2">
+                        <span
+                        v-for="category in post.categories" 
+                        :key="category.id" 
+                        class="inline-block py-1 px-2 rounded bg-indigo-50 text-indigo-500 text-xs font-medium tracking-widest"
+                        >
+                          {{ category.name }}
+                        </span>
+                      </p>
+                    
+                    </div>
+                  </div>
+                  <div class="flex justify-between items-center px-4 mb-4 w-full">
+                    <div class="flex">
+                    <!--<i class="material-icons mr-2 text-red-600">favorite_border</i>-->
+                    <!--<i class="material-icons text-blue-600">remove_red_eye</i>-->
+                      <a :href="`/users/${post.user_id}`" class="inline-flex items-center">
+                        <img alt="blog" src="https://dummyimage.com/104x104" class="w-10 h-10 rounded-full flex-shrink-0 object-cover object-center">
+                        <span class="flex-grow flex flex-col pl-4">
+                        <span class="title-font font-medium text-gray-900">{{ post.user.name }}</span>
+                        </span>
+                      </a>
+                    </div>
+                    <div class="flex">
+                      <a :href="`/posts/${post.id}`" class="text-indigo-500 inline-flex items-center">詳細
+                        <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M5 12h14"></path>
+                          <path d="M12 5l7 7-7 7"></path>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>          
+                </div>
+              </div>
                 </div>
             </div>
         </div>
         
     </AuthenticatedLayout>
 </template>
+<style scoped>
+body {
+  text-align: center;
+}
+
+.hr-text {
+  line-height: 1em;
+  position: relative;
+  outline: 0;
+  border: 0;
+  color: black;
+  text-align: center;
+  height: 1.5em;
+  opacity: 0.5;
+}
+.hr-text:before {
+  content: "";
+  background: linear-gradient(to right, transparent, #818078, transparent);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+}
+.hr-text:after {
+  content: attr(data-content);
+  position: relative;
+  display: inline-block;
+  color: black;
+  padding: 0 0.5em;
+  line-height: 1.5em;
+  color: #818078;
+  background-color: #fcfcfa;
+}
+
+.image-container {
+    width: 14rem; /* 画像の幅を設定します */
+    height: 18rem; /* 画像の高さを設定します */
+}
+
+.post-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover; /* 画像がコンテナの大きさに合うように拡大/縮小します */
+    background-position: center; /* 画像を中央に配置します */
+    background-repeat: no-repeat; /* 画像が繰り返されないようにします */
+}
+</style>
