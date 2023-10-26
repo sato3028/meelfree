@@ -12,7 +12,7 @@ const form = reactive({
   title : null,
   body : null,
   categories: [],
-  images: []  // この行を追加
+  images: []
 })
 
 const postItem = async () => {
@@ -83,16 +83,13 @@ const images = ref([]);
 const handleFiles = (event) => {
   const newImages = Array.from(event.target.files);
 
-  // 画像の合計数が4枚を超える場合、flashメッセージをセット
   if (form.images.length + newImages.length > 4) {
     flashMessage.value = "最大4枚の画像しかアップロードできません。";
-    return; // エラーメッセージをセットした後に関数を終了
+    return;
   }
 
-  // 新しい画像をform.imagesに追加
   form.images.push(...newImages);
 
-  // プレビューのためのロジック（既存のロジックを維持）
   const previewImages = newImages.map(file => {
     const preview = ['jpg', 'jpeg', 'png', 'gif'].includes(file.name.split('.').pop().toLowerCase());
     const size = file.size > 1024 
@@ -109,11 +106,10 @@ const handleFiles = (event) => {
     };
   });
 
-  // プレビュー用の配列に新しい画像を追加
   images.value = [...images.value, ...previewImages];
 };
 
-const flashMessage = ref(null);  // flashメッセージを保存するrefを追加
+const flashMessage = ref(null);
 
 
 
@@ -154,7 +150,6 @@ const clickInput = () => {
                                           </div>
                                         </template>
       
-                                          <!-- タイトル -->
                                           <div class="p-2 w-1/2">
                                               <div class="relative">
                                                   <label for="title" class="leading-7 text-sm text-gray-600">タイトル</label>
@@ -162,7 +157,6 @@ const clickInput = () => {
                                               </div>
                                           </div>
       
-                                          <!-- カテゴリー -->
                                           <div class="p-2 w-1/2">
                                               <div class="relative">
                                                   <label for="categories" class="leading-7 text-sm text-gray-600">カテゴリー</label>
@@ -246,7 +240,6 @@ const clickInput = () => {
                                               </div>
                                           </div>
       
-                                          <!-- 投稿内容 -->
                                           <div class="p-2 w-full">
                                               <div class="relative">
                                                   <label for="body" class="leading-7 text-sm text-gray-600">投稿内容</label>
@@ -257,17 +250,14 @@ const clickInput = () => {
                                           
                                           <div class="icons flex text-gray-500 m-2">
                                             <label id="select-image">
-                                              <!-- SVG for the upload icon -->
                                               <svg class="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <!-- SVG path -->
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
                                               </svg>
                                               <input hidden type="file" multiple @change="handleFiles" ref="fileInput">
                                             </label>
                                             <div class="count ml-auto text-gray-400 text-xs font-semibold">{{ images.length }}/4</div>
                                           </div>
-                                        
-                                          <!-- Preview image here -->
+
                                           <div id="preview" class="my-4 flex">
                                             <template v-for="(image, index) in images" :key="index">
                                               <div class="relative w-32 h-32 object-cover rounded">
@@ -279,7 +269,6 @@ const clickInput = () => {
                                                   <div class="text-xs text-center p-2">{{ image.size }}</div>
                                                 </div>
                                                 <div v-else class="relative w-32 h-32 object-cover rounded">
-                                                  <!-- SVG for non-preview-able files -->
                                                   <svg class="fill-current w-32 h-32 ml-auto pt-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                                     <path d="M15 2v5h5v15h-16v-20h11zm1-2h-14v24h20v-18l-6-6z" />
                                                   </svg>
@@ -293,7 +282,6 @@ const clickInput = () => {
                                           </div>
                                           
       
-                                          <!-- 投稿ボタン -->
                                           <div class="p-2 w-full">
                                               <button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">投稿する</button>
                                           </div>

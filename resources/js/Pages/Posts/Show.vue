@@ -36,7 +36,7 @@ function addComment() {
         
             <div class="flex-grow w-1/2 bg-white overflow-y-auto p-4">
                 <h1 class="text-4xl font-semibold text-center">{{ post.title }}</h1>
-                <hr class="w-72 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
+                <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-300">
                 <div class="mb-4">
                     <p class="text-2xl">{{ post.body }}</p>
                 </div>
@@ -86,12 +86,11 @@ function addComment() {
 </AuthenticatedLayout>
 </template>
 <style scoped>
-        /* スクロールバーを非表示にする */
 .hide-scrollbar::-webkit-scrollbar {
     display: none;
 }
 .hide-scrollbar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 </style>

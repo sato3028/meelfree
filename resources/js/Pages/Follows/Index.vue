@@ -115,5 +115,4 @@ const unfollow = (userId) => {
 </template>
 
 <style scoped>
-/* ここに必要なスタイルを追加できます */
 </style>
