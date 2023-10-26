@@ -11,11 +11,6 @@ const reversedPosts = computed(() => {
   return [...props.posts].reverse();
 });
 
-// onMounted(() => {
-//   reversedPosts.value.forEach((post, index) => {
-//     console.log(`Post ${index + 1} Categories:`, post.categories);
-//   });
-// });
 </script>
 
 <template>
@@ -34,13 +29,6 @@ const reversedPosts = computed(() => {
                   
                 <div  v-for="post in reversedPosts" class="bg-white rounded-md bg-gray-800 shadow-lg my-6 mx-auto w-3/4">
                   <div class="md:flex px-4 leading-none max-w-4xl">
-                    <!--<div class="flex-none ">-->
-                    <!--  <img-->
-                    <!--      :src="post.images.length > 0 ? post.images[0].image_url : 'https://res.cloudinary.com/dqaxgeag8/image/upload/v1697804642/20200501_noimage_k5bak3.jpg'"-->
-                    <!--      alt="pic"-->
-                    <!--      class="h-72 w-56 rounded-md shadow-2xl transform -translate-y-4 border-4 border-gray-300 shadow-lg"-->
-                    <!--  />         -->
-                    <!--</div>-->
                     
                     <div class="flex-none image-container">
                       <div
@@ -133,15 +121,15 @@ body {
 }
 
 .image-container {
-    width: 14rem; /* 画像の幅を設定します */
-    height: 18rem; /* 画像の高さを設定します */
+    width: 14rem;
+    height: 18rem;
 }
 
 .post-image {
     width: 100%;
     height: 100%;
-    background-size: cover; /* 画像がコンテナの大きさに合うように拡大/縮小します */
-    background-position: center; /* 画像を中央に配置します */
-    background-repeat: no-repeat; /* 画像が繰り返されないようにします */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 </style>

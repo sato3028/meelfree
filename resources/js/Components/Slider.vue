@@ -60,7 +60,6 @@ const prevSlide = () => {
 </script>
 
 <style scoped>
-/*スライダー001*/
 .slider-001 {
   width: 100%;
   position: relative;
