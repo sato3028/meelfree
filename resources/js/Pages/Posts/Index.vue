@@ -14,7 +14,7 @@ const reversedPosts = computed(() => {
 </script>
 
 <template>
-    <Head title="商品一覧" />
+    <Head title="投稿一覧" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -37,7 +37,7 @@ const reversedPosts = computed(() => {
                       ></div>
                     </div>
           
-                    <div class="flex-col text-gray-300 w-hull">
+                    <div class="flex-col text-gray-600 w-hull">
              
                       <p class="pl-4 mt-2 text-2xl font-bold">{{ post.title }}</p>
                       <hr class="hr-text" data-content="">

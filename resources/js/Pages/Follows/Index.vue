@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import FollowButton from '@/Layouts/FollowButton.vue';
-import { router } from '@inertiajs/vue3'
+import { Head,router } from '@inertiajs/vue3'
 
 const { users } = usePage().props;
 const { following, followers } = usePage().props;
@@ -36,7 +36,7 @@ const unfollow = (userId) => {
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
   
                 <div>
-                  <div class="hidden w-full sm:flex justify-between">
+                  <div class="hidden mt-6 mb-6 w-full sm:flex justify-between">
                     <button
                       class="w-1/2 py-3 mx-4 flex items-center justify-center text-2xl font-medium leading-5 text-gray-900 text-center focus:outline-none transition duration-150 ease-in-out"
                       :class="activeTab === 'following' ? 'border-b-2 border-indigo-400' : ''"
