@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { ref } from 'vue';
-import { router } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import Slider from '@/Components/Slider.vue';
 
 const props = defineProps({
@@ -20,6 +20,8 @@ function addComment() {
 </script>
 
 <template>
+    <Head title="投稿詳細" />
+    
 <AuthenticatedLayout>
 <template #header>
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">投稿詳細</h2>
@@ -34,7 +36,7 @@ function addComment() {
                 <Slider :images="images"/>
             </div>
         
-            <div class="flex-grow w-1/2 bg-white overflow-y-auto p-4">
+            <div class="flex-grow text-gray-600 w-1/2 bg-white overflow-y-auto p-4">
                 <h1 class="text-4xl font-semibold text-center">{{ post.title }}</h1>
                 <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-300">
                 <div class="mb-4">
